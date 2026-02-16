@@ -9,7 +9,7 @@
   "readme": "https://github.com/Colter1911/Sound-Engine-Master/blob/main/README.md",
   "bugs": "",
   "changelog": "",
-  "license": "https://raw.githubusercontent.com/Colter1911/Sound-Engine-Master/refs/heads/main/LICENSE.md"
+  "license": "https://raw.githubusercontent.com/Colter1911/Sound-Engine-Master/refs/heads/main/LICENSE.md",
   "compatibility": {
     "minimum": "13",
     "verified": "13.351"
@@ -41,4 +41,5 @@
   "socket": true
 
 }
+
 
