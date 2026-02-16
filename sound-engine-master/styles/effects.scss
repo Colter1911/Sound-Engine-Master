@@ -1,0 +1,965 @@
+/* ═══════════════════════════════════════════════════════════════
+   Pedalboard Effects Chain UI
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Layout Container ──────────────────────────────────────── */
+
+.ase-effects-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #1a1a1a;
+    overflow: hidden;
+    color: #e0e0e0;
+    position: relative;
+}
+
+/* ─── Channel Tabs ──────────────────────────────────────────── */
+
+.ase-channel-tabs {
+    display: flex;
+    height: 44px;
+    background: #1a1a1a;
+    border-bottom: 2px solid #2a2a2a;
+    padding: 0 1rem;
+    gap: 0;
+    flex-shrink: 0;
+    align-items: stretch;
+}
+
+.ase-channel-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: "Signika", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7a7971;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.ase-channel-tab:hover {
+    color: #cec4b0;
+}
+
+.ase-channel-tab.active {
+    color: #f0f0e0;
+}
+
+.ase-channel-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background: #ff6400;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 0 8px rgba(255, 100, 0, 0.4);
+}
+
+.ase-tab-badge {
+    background: #ff6400;
+    color: #000;
+    font-size: 0.65rem;
+    font-weight: 800;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* ─── Master Bypass Button (Legacy - repurposed if needed, but likely replaced) ─────────────────────────────────── */
+
+.ase-master-bypass {
+    display: none;
+    /* Hidden as per new design */
+}
+
+/* ─── Effects Control Bar (Enable/Disable) ───────────────────── */
+
+.ase-effects-control-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    flex: 0 0 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    z-index: 5;
+}
+
+.ase-bypass-btn {
+    display: inline-flex;
+    position: relative;
+    top: 100px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 200px;
+    height: 38px;
+    padding: 0 18px;
+    border-radius: 4px;
+    border: 1px solid rgba(178, 183, 189, 0.55);
+    background: rgba(13, 16, 21, 0.92);
+    color: #cfd3d9;
+    font-family: "Signika", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+.ase-bypass-btn span {
+    line-height: 1;
+}
+
+.ase-bypass-btn i {
+    font-size: 0.95rem;
+    color: currentColor;
+}
+
+.ase-bypass-btn:hover {
+    background: rgba(18, 22, 28, 0.95);
+    color: #f0f2f5;
+    border-color: rgba(214, 218, 224, 0.8);
+}
+
+.ase-bypass-btn:active {
+    transform: translateY(1px);
+}
+
+/* Effects enabled → orange glowing button */
+.ase-bypass-btn.enabled {
+    background: rgba(49, 20, 0, 0.55);
+    border-color: #ff7800;
+    color: #fff3e8;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 120, 0, 0.3),
+        0 0 12px rgba(255, 120, 0, 0.45),
+        0 0 26px rgba(255, 120, 0, 0.18);
+}
+
+.ase-bypass-btn.enabled:hover {
+    background: rgba(63, 25, 0, 0.65);
+    border-color: #ff8c26;
+    color: #ffffff;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 140, 38, 0.35),
+        0 0 16px rgba(255, 120, 0, 0.55),
+        0 0 30px rgba(255, 120, 0, 0.22);
+}
+
+
+/* ─── Pedalboard Area ───────────────────────────────────────── */
+
+.ase-pedalboard {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(40, 40, 40, 0.5) 0%, transparent 70%),
+        linear-gradient(180deg, #0b0b0b 0%, #111 90%);
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+}
+
+.ase-pedalboard-inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+}
+
+/* ─── Chain Terminals ───────────────────────────────────────── */
+
+.ase-chain-terminal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 64px;
+    height: 90px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.ase-terminal-icon {
+    font-size: 1.5rem;
+    color: #7a7971;
+}
+
+.ase-terminal-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #7a7971;
+}
+
+/* ─── Cables ────────────────────────────────────────────────── */
+
+.ase-cable {
+    width: 40px;
+    min-width: 30px;
+    flex-shrink: 0;
+    height: 4px;
+    align-self: center;
+    position: relative;
+}
+
+.ase-cable::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #2a2a2a;
+    border-radius: 2px;
+    transform: translateY(-50%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03), 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.ase-cable.active::before {
+    background: linear-gradient(90deg, #3a2a1a, #4a3520);
+    box-shadow: 0 0 6px rgba(255, 100, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.ase-cable::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: #3a3a3a;
+    border: 1px solid #444;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ase-cable.active::after {
+    background: #4a3520;
+    border-color: #6a4a2a;
+    box-shadow: 0 0 4px rgba(255, 100, 0, 0.15);
+}
+
+/* ─── Pedal Card ────────────────────────────────────────────── */
+
+.ase-pedal-card {
+    width: 160px;
+    min-width: 160px;
+    height: 230px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 12px;
+    background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #222 100%);
+    border: 1px solid #3a3a3a;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    cursor: grab;
+    transition: border-color 0.2s, box-shadow 0.2s, opacity 0.2s, transform 0.2s;
+    position: relative;
+}
+
+.ase-pedal-card:hover {
+    border-color: #555;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.ase-pedal-card:hover .ase-pedal-remove {
+    opacity: 1;
+}
+
+.ase-pedal-card.selected {
+    border-color: #ff6400;
+    box-shadow: 0 0 15px rgba(255, 100, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.ase-pedal-card:not(.active) {
+    opacity: 0.5;
+    filter: saturate(0.3);
+}
+
+.ase-pedal-card.dragging {
+    opacity: 0.4;
+    transform: scale(0.95);
+    cursor: grabbing;
+}
+
+/* ─── Pedal Remove Button ──────────────────────────────────── */
+
+.ase-pedal-remove {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #c0392b;
+    border: 2px solid #1a1a1a;
+    color: #fff;
+    font-size: 0.55rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s, background 0.15s, transform 0.1s;
+    z-index: 10;
+    padding: 0;
+    line-height: 1;
+}
+
+.ase-pedal-remove:hover {
+    background: #e74c3c;
+    transform: scale(1.15);
+}
+
+/* ─── Pedal Name ────────────────────────────────────────────── */
+
+.ase-pedal-name-top {
+    font-family: "Signika", sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #7a7971;
+    margin-bottom: 4px;
+}
+
+.ase-pedal-name-bottom {
+    font-family: "Signika", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #cec4b0;
+}
+
+/* ─── Pedal Knob (Metallic Chrome) ──────────────────────────── */
+
+.ase-pedal-knob-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.ase-pedal-knob {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    transform: rotate(var(--knob-rotation, 0deg));
+    background: radial-gradient(circle at 35% 30%, #8a8a8a 0%, #555 25%, #333 50%, #444 75%, #3a3a3a 100%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.15), inset 0 -1px 2px rgba(0, 0, 0, 0.4), 0 0 0 3px #222, 0 0 0 4px #3a3a3a;
+}
+
+.ase-knob-indicator {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 3px;
+    height: 14px;
+    background: #f0f0e0;
+    border-radius: 2px;
+    transform: translateX(-50%);
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.ase-pedal-mix-value {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #cec4b0;
+    letter-spacing: 0.05em;
+}
+
+/* ─── Footswitch ────────────────────────────────────────────── */
+
+.ase-pedal-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+}
+
+.ase-pedal-footswitch {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    background: radial-gradient(circle at 40% 35%, #c4956a 0%, #8b6842 40%, #6b4c30 70%, #5a3d25 100%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 0 0 2px #333;
+    transition: box-shadow 0.15s, transform 0.1s;
+}
+
+.ase-pedal-footswitch:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 0 0 2px #555;
+}
+
+.ase-pedal-footswitch:active {
+    transform: scale(0.95);
+}
+
+.ase-pedal-footswitch.engaged {
+    background: radial-gradient(circle at 40% 35%, #d4a57a 0%, #9b7852 40%, #7b5c40 70%, #6a4d35 100%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 0 8px rgba(255, 140, 50, 0.2), 0 0 0 2px #555;
+}
+
+/* ─── LED Indicator ─────────────────────────────────────────── */
+
+.ase-pedal-led {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #222;
+    border: 1px solid #333;
+    transition: all 0.2s;
+}
+
+.ase-pedal-led.on {
+    background: #ff6400;
+    border-color: #ff6400;
+    box-shadow: 0 0 6px rgba(255, 100, 0, 0.6);
+}
+
+/* ─── Drop Zone ─────────────────────────────────────────────── */
+
+.ase-drop-zone {
+    width: 6px;
+    min-width: 6px;
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: width 0.25s ease, min-width 0.25s ease, background 0.2s;
+}
+
+/* When any drag is active, expand ALL drop zones to be easily hittable */
+.ase-pedalboard.drag-active .ase-drop-zone {
+    width: 36px;
+    min-width: 36px;
+    background: rgba(255, 100, 0, 0.03);
+    border-radius: 4px;
+}
+
+/* No-op zones (adjacent to dragged item) stay slim */
+.ase-pedalboard.drag-active .ase-drop-zone.no-op {
+    width: 6px;
+    min-width: 6px;
+    background: transparent;
+}
+
+.ase-drop-zone.drag-over {
+    width: 80px;
+    min-width: 80px;
+    background: rgba(255, 100, 0, 0.06);
+}
+
+.ase-drop-zone.drag-over .ase-drop-zone-indicator {
+    opacity: 1;
+    width: 4px;
+}
+
+.ase-drop-zone-indicator {
+    width: 0;
+    height: 210px;
+    border: none;
+    border-radius: 2px;
+    background: #ff6400;
+    opacity: 0;
+    transition: opacity 0.2s, width 0.2s;
+    box-shadow: 0 0 10px rgba(255, 100, 0, 0.4);
+}
+
+/* Show subtle indicator on hover during drag */
+.ase-pedalboard.drag-active .ase-drop-zone:not(.no-op) .ase-drop-zone-indicator {
+    opacity: 0.3;
+    width: 2px;
+}
+
+/* ─── Add Effect Button ─────────────────────────────────────── */
+
+.ase-add-effect-btn {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 50%;
+    border: 2px dashed #555;
+    background: rgba(255, 100, 0, 0.05);
+    color: #777;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin: 0 16px;
+    /* Increased from 8px */
+    flex-shrink: 0;
+}
+
+.ase-add-effect-btn:hover {
+    border-color: #ff6400;
+    color: #ff6400;
+    background: rgba(255, 100, 0, 0.1);
+    box-shadow: 0 0 12px rgba(255, 100, 0, 0.2);
+    transform: scale(1.1);
+}
+
+/* ─── Constructor Drawer ────────────────────────────────────── */
+
+.ase-constructor {
+    position: absolute;
+    top: 46px;
+    right: 0;
+    width: 320px;
+    /* Increased from 260px */
+    max-height: 0;
+    overflow: hidden;
+    background: #1e1e1e;
+    border-left: 1px solid #333;
+    border-bottom: 1px solid #333;
+    border-radius: 0 0 0 10px;
+    z-index: 200;
+    transition: max-height 0.3s ease, box-shadow 0.3s;
+    box-shadow: none;
+}
+
+.ase-constructor.open {
+    max-height: 600px;
+    /* Increased to fit larger buttons */
+    box-shadow: -4px 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.ase-constructor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.ase-constructor-header h4 {
+    font-family: "Signika", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #f0f0e0;
+    margin: 0;
+}
+
+.ase-constructor-close {
+    background: none;
+    border: none;
+    color: #7a7971;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px;
+    transition: color 0.15s;
+}
+
+.ase-constructor-close:hover {
+    color: #f0f0e0;
+}
+
+.ase-constructor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    /* Increased gap */
+    padding: 16px;
+}
+
+.ase-constructor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 16px;
+    /* Increased padding */
+    background: #252525;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #cec4b0;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-height: 90px;
+    /* Ensure buttons are tall enough */
+    justify-content: center;
+}
+
+.ase-constructor-item:hover {
+    background: #2a2a2a;
+    border-color: #ff6400;
+    color: #f0f0e0;
+    box-shadow: 0 0 8px rgba(255, 100, 0, 0.15);
+}
+
+.ase-constructor-item-icon {
+    font-size: 1.8rem;
+    /* Larger icon */
+    color: #ff6400;
+    margin-bottom: 8px;
+}
+
+.ase-constructor-item-label {
+    font-family: "Signika", sans-serif;
+    font-size: 0.85rem;
+    /* Increased font size */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    width: 100%;
+    text-align: center;
+    white-space: normal;
+    /* Allow text wrapping */
+    line-height: 1.2;
+}
+
+.ase-constructor-empty {
+    padding: 24px 16px;
+    text-align: center;
+    color: #7a7971;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+/* ─── Detail Panel ──────────────────────────────────────────── */
+
+.ase-detail-panel {
+    height: 200px;
+    min-height: 200px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #151515 100%);
+    border-top: 2px solid #2a2a2a;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: height 0.3s, min-height 0.3s, padding 0.3s;
+    flex-shrink: 0;
+}
+
+.ase-detail-panel.collapsed {
+    height: 50px;
+    min-height: 50px;
+    padding: 0.8rem 1.5rem;
+}
+
+.ase-detail-header h3 {
+    font-family: "Signika", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #f0f0e0;
+    margin: 0 0 0.8rem 0;
+    text-align: center;
+}
+
+.ase-detail-content {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+    align-items: center;
+}
+
+/* Detail: Mix Knob */
+
+.ase-detail-knob-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+}
+
+.ase-detail-knob {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #7a7a7a 0%, #4a4a4a 30%, #2a2a2a 60%, #333 100%);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6), inset 0 1px 3px rgba(255, 255, 255, 0.12), 0 0 0 4px #1a1a1a, 0 0 0 5px #3a3a3a;
+    position: relative;
+    cursor: pointer;
+    transform: rotate(var(--knob-rotation, 0deg));
+}
+
+.ase-detail-knob .ase-knob-indicator {
+    top: 8px;
+    height: 18px;
+    width: 3px;
+}
+
+.ase-detail-knob-label {
+    font-family: "Signika", sans-serif;
+    font-size: 0.85rem;
+    color: #ff6400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+}
+
+/* Detail: Parameter Grid */
+
+.ase-detail-params {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 2rem;
+    align-content: center;
+}
+
+.ase-detail-param-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ase-detail-param-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #7a7971;
+    min-width: 55px;
+    white-space: nowrap;
+}
+
+.ase-detail-param-value {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #cec4b0;
+    min-width: 45px;
+}
+
+/* Detail: Orange Range Slider */
+
+.ase-detail-slider {
+    flex: 1;
+    height: 6px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #333;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.ase-detail-slider::-webkit-slider-runnable-track {
+    height: 6px;
+    background: linear-gradient(to right,
+            #ff6400 0%, #ff6400 var(--slider-fill, 50%),
+            #333 var(--slider-fill, 50%), #333 100%);
+    border-radius: 3px;
+}
+
+.ase-detail-slider::-moz-range-track {
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    border: none;
+}
+
+.ase-detail-slider::-moz-range-progress {
+    height: 6px;
+    background: #ff6400;
+    border-radius: 3px;
+}
+
+.ase-detail-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #eee 0%, #999 100%);
+    border-radius: 50%;
+    border: 2px solid #555;
+    cursor: pointer;
+    margin-top: -5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.ase-detail-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #eee 0%, #999 100%);
+    border-radius: 50%;
+    border: 2px solid #555;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Detail: Segmented Control */
+
+.ase-detail-param-segmented {
+    display: flex;
+    border: 1px solid #444;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.ase-seg-btn {
+    background: #1e1e1e;
+    border: none;
+    border-right: 1px solid #444;
+    color: #7a7971;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.ase-seg-btn:last-child {
+    border-right: none;
+}
+
+.ase-seg-btn.active {
+    background: rgba(255, 100, 0, 0.15);
+    color: #f0f0e0;
+    font-weight: 700;
+}
+
+.ase-seg-btn:hover:not(.active) {
+    background: #2a2a2a;
+    color: #cec4b0;
+}
+
+/* Detail: Empty */
+
+.ase-detail-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    color: #7a7971;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+/* ─── Chain Bypassed State ─────────────────────────────────── */
+
+.ase-effects-layout.chain-bypassed .ase-pedalboard {
+    opacity: 0.35;
+    filter: saturate(0.2);
+    pointer-events: none;
+}
+
+.ase-effects-layout.chain-bypassed .ase-detail-panel {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* ─── Footer ────────────────────────────────────────────────── */
+
+.ase-effects-footer {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    gap: 1rem;
+    background: #111;
+    border-top: 1px solid #2a2a2a;
+    flex-shrink: 0;
+}
+
+.ase-preset-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ase-preset-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #7a7971;
+}
+
+.ase-preset-select {
+    background: #1e1e1e;
+    color: #cec4b0;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 6px 10px;
+    min-width: 200px;
+    font-size: 0.8rem;
+}
+
+.ase-footer-btn {
+    background: #ff6400;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s;
+}
+
+.ase-footer-btn:hover {
+    background: #ff8533;
+}
+
+.ase-footer-btn.secondary {
+    background: transparent;
+    color: #7a7971;
+    border: 1px solid #444;
+    margin-left: auto;
+}
+
+.ase-footer-btn.secondary:hover {
+    color: #cec4b0;
+    border-color: #666;
+}
+
+/* ─── Drag Ghost ────────────────────────────────────────────── */
+
+.ase-drag-ghost {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.85;
+    transform: rotate(3deg) scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+    border: 2px solid #ff6400;
+    border-radius: 10px;
+}

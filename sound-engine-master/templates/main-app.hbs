@@ -1,0 +1,120 @@
+<div class="ase-app-container">
+    <!-- Tabs -->
+    <nav class="ase-main-tabs">
+        <div class="ase-tab {{#if (eq activeTab 'mixer')}}active{{/if}}" data-tab="mixer" data-action="tab-switch">
+            {{localize 'ASE.UI.Tabs.Mixer'}}
+        </div>
+        <div class="ase-tab {{#if (eq activeTab 'library')}}active{{/if}}" data-tab="library" data-action="tab-switch">
+            {{localize 'ASE.UI.Tabs.Library'}}
+        </div>
+        <div class="ase-tab ase-disabled" disabled>
+            {{localize 'ASE.UI.Tabs.OnlineComingSoon'}}
+        </div>
+        <div class="ase-tab {{#if (eq activeTab 'sfx')}}active{{/if}}" data-tab="sfx" data-action="tab-switch">
+            {{localize 'ASE.UI.Tabs.Effects'}}
+        </div>
+    </nav>
+
+    <!-- Main Workspace Injection -->
+    <div class="ase-main-content">
+        {{{tabContent}}}
+    </div>
+
+    <!-- Footer (Universal Mixer) -->
+    <footer class="ase-mixer-footer">
+
+        <!-- SFX Group -->
+        <div class="ase-mixer-group">
+            <div class="ase-mixer-top">
+                <div
+                    class="ase-status-light {{#if status.sfx.playing}}active-green{{else if status.sfx.paused}}active{{/if}}">
+                </div>
+                <div class="ase-mixer-controls">
+                    <i class="fa-solid fa-bolt"></i> {{localize 'ASE.Groups.sfx'}}
+                </div>
+            </div>
+            <div class="ase-slider-wrapper">
+                <input type="range" class="ase-volume-slider" data-channel="sfx" min="0" max="100"
+                    value="{{volumes.sfx}}">
+                <span class="ase-percentage">{{volumes.sfx}}%</span>
+            </div>
+        </div>
+
+        <!-- Ambience Group -->
+        <div class="ase-mixer-group">
+            <div class="ase-mixer-top">
+                <div
+                    class="ase-status-light {{#if status.ambience.playing}}active-green{{else if status.ambience.paused}}active{{/if}}">
+                </div>
+                <div class="ase-mixer-controls">
+                    <i class="fa-solid fa-bell"></i> {{localize 'ASE.Groups.ambience'}}
+                </div>
+            </div>
+            <div class="ase-slider-wrapper">
+                <input type="range" class="ase-volume-slider" data-channel="ambience" min="0" max="100"
+                    value="{{volumes.ambience}}">
+                <span class="ase-percentage">{{volumes.ambience}}%</span>
+            </div>
+        </div>
+
+        <!-- Music Group -->
+        <div class="ase-mixer-group">
+            <div class="ase-mixer-top">
+                <div
+                    class="ase-status-light {{#if status.music.playing}}active-green{{else if status.music.paused}}active{{/if}}">
+                </div>
+                <div class="ase-mixer-controls">
+                    <i class="fa-solid fa-music"></i> {{localize 'ASE.Groups.music'}}
+                </div>
+            </div>
+            <div class="ase-slider-wrapper">
+                <input type="range" class="ase-volume-slider" data-channel="music" min="0" max="100"
+                    value="{{volumes.music}}">
+                <span class="ase-percentage">{{volumes.music}}%</span>
+            </div>
+        </div>
+
+        <div class="ase-master-group">
+            <!-- Master Row -->
+            <div class="ase-master-row">
+                <div class="ase-master-label"><i class="fa-solid fa-volume-high"></i> {{localize 'ASE.MasterVolume'}}
+                </div>
+                <input type="range" class="ase-volume-slider ase-master-slider" data-type="master" min="0" max="100"
+                    value="{{volumes.master}}">
+                <div class="ase-percentage ase-master-perc">{{volumes.master}}%</div>
+            </div>
+
+            <!-- Local Row -->
+            <div class="ase-master-row local-row">
+                <div class="ase-master-label"><i class="fa-solid fa-headphones"></i> {{localize 'ASE.UI.Volume.Local'}}
+                </div>
+                <input type="range" class="ase-volume-slider ase-master-slider" data-type="local" min="0" max="100"
+                    value="{{volumes.local}}">
+                <div class="ase-percentage ase-local-perc ase-master-perc">{{volumes.local}}%</div>
+            </div>
+        </div>
+
+        <!-- Global Controls -->
+        <div class="ase-global-controls">
+            <div class="ase-sync-wrapper" data-action="toggle-sync" title="{{localize 'ASE.UI.Tooltip.ToggleSync'}}">
+                <div class="ase-sync-light {{#if syncEnabled}}active{{/if}}"></div>
+                <span class="ase-sync-label">{{localize 'ASE.UI.Sync.Label'}} {{#if syncEnabled}}{{localize
+                    'ASE.UI.Sync.On'}}{{else}}{{localize 'ASE.UI.Sync.Off'}}{{/if}}</span>
+            </div>
+            <div class="ase-big-buttons">
+                <i class="fa-solid fa-play" data-action="global-play"
+                    title="{{localize 'ASE.UI.Tooltip.ResumeAll'}}"></i>
+                <i class="fa-solid fa-pause" data-action="global-pause"
+                    title="{{localize 'ASE.UI.Tooltip.PauseAll'}}"></i>
+                <i class="fa-solid fa-stop" data-action="global-stop" title="{{localize 'ASE.UI.Tooltip.StopAll'}}"></i>
+            </div>
+        </div>
+
+    </footer>
+    <div class="ase-bottom-bar-info">
+        <a class="ase-creator-link" href="https://boosty.to/frieddend" target="_blank" rel="noopener noreferrer">
+            FriedDenD © {{localize 'ASE.Title'}} v{{moduleVersion}}
+        </a>
+        <span class="ase-ml-auto"><!-- Track count placeholder --></span>
+    </div>
+</div>

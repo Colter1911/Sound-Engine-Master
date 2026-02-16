@@ -1,0 +1,64 @@
+{{!-- Volume HUD Panel (Foundry-style, no collapse rail) --}}
+<section class="ase-hud-body">
+    <header class="ase-hud-head">
+        <div class="ase-hud-title-wrap">
+            <span class="ase-hud-sync-dot {{#if syncEnabled}}is-active{{/if}}"
+                title="{{#if syncEnabled}}{{localize 'ASE.UI.Sync.On'}}{{else}}{{localize 'ASE.UI.Sync.Off'}}{{/if}}"></span>
+            <span class="ase-hud-title">{{localize 'ASE.Title'}}</span>
+        </div>
+        {{#if isGM}}
+        <button class="ase-hud-open-app" type="button" title="{{localize 'ASE.UI.Tooltip.OpenFullMixer'}}">
+            <i class="fa-solid fa-up-right-from-square"></i>
+        </button>
+        {{/if}}
+    </header>
+
+    <div class="ase-hud-separator"></div>
+
+    <div class="ase-hud-controls">
+        {{#if isGM}}
+        <div class="ase-hud-slider-row">
+            <div class="ase-hud-slider-label" title="{{localize 'ASE.MasterVolume'}}"><i
+                    class="fa-solid fa-volume-high"></i></div>
+            <input type="range" class="ase-hud-slider" data-type="master" min="0" max="100" value="{{masterVolume}}">
+            <span class="ase-hud-value" data-type="master">{{masterVolume}}%</span>
+        </div>
+
+        <div class="ase-hud-slider-row">
+            <div class="ase-hud-slider-label" title="{{localize 'ASE.UI.Volume.Local'}}"><i
+                    class="fa-solid fa-headphones"></i></div>
+            <input type="range" class="ase-hud-slider" data-type="local" min="0" max="100" value="{{localVolume}}">
+            <span class="ase-hud-value" data-type="local">{{localVolume}}%</span>
+        </div>
+
+        <div class="ase-hud-slider-row">
+            <div class="ase-hud-slider-label" title="{{localize 'ASE.Groups.music'}}"><i class="fa-solid fa-music"></i>
+            </div>
+            <input type="range" class="ase-hud-slider" data-channel="music" min="0" max="100" value="{{musicVolume}}">
+            <span class="ase-hud-value" data-channel="music">{{musicVolume}}%</span>
+        </div>
+
+        <div class="ase-hud-slider-row">
+            <div class="ase-hud-slider-label" title="{{localize 'ASE.Groups.ambience'}}"><i
+                    class="fa-solid fa-cloud"></i></div>
+            <input type="range" class="ase-hud-slider" data-channel="ambience" min="0" max="100"
+                value="{{ambienceVolume}}">
+            <span class="ase-hud-value" data-channel="ambience">{{ambienceVolume}}%</span>
+        </div>
+
+        <div class="ase-hud-slider-row">
+            <div class="ase-hud-slider-label" title="{{localize 'ASE.Groups.sfx'}}"><i class="fa-solid fa-bolt"></i>
+            </div>
+            <input type="range" class="ase-hud-slider" data-channel="sfx" min="0" max="100" value="{{sfxVolume}}">
+            <span class="ase-hud-value" data-channel="sfx">{{sfxVolume}}%</span>
+        </div>
+        {{else}}
+        <div class="ase-hud-slider-row ase-hud-player-row">
+            <div class="ase-hud-slider-label" title="{{localize 'ASE.Volume'}}"><i class="fa-solid fa-volume-up"></i>
+            </div>
+            <input type="range" class="ase-hud-slider" data-type="player" min="0" max="100" value="{{playerVolume}}">
+            <span class="ase-hud-value" data-type="player">{{playerVolume}}%</span>
+        </div>
+        {{/if}}
+    </div>
+</section>

@@ -1,0 +1,1003 @@
+:root {
+  --bg-dark: #0f1219;
+  --bg-panel: #141926;
+  --bg-header: #1a2133;
+  --bg-active: #242d44;
+  --accent-blue: #3b82f6;
+  --accent-cyan: #22d3ee;
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --ase-success: #22c55e;
+  --ase-warning: #fbbf24;
+  --ase-danger: #ef4444;
+}
+
+// Global Reset for the Module Window
+.app.window-app.ase-window-layout,
+.app.window-app.ase-window-layout .window-content {
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden;
+  background: var(--bg-dark) !important;
+  color: var(--text-main);
+  box-shadow: none !important;
+}
+
+/* Force Context Menu to be above everything */
+#context-menu {
+  z-index: 9999 !important;
+}
+
+
+// Scoped Component Styles
+.ase-window-layout {
+
+  * {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .ase-app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-size: 14px;
+    width: 100%;
+  }
+
+  /* --- Header --- */
+  .ase-top-bar {
+    background-color: #111521;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 15px;
+    border-bottom: 1px solid #2d364e;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .ase-window-controls {
+    cursor: pointer;
+    color: var(--text-muted);
+  }
+
+  /* --- Tabs --- */
+  .ase-main-tabs {
+    display: flex;
+    background-color: #1a2133;
+    border-bottom: 1px solid #000;
+    flex-shrink: 0;
+  }
+
+  .ase-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background-color: #20283d;
+    border-right: 1px solid #111;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ase-tab.active {
+    background-color: #2b3652;
+    color: var(--text-main);
+    border-top: 2px solid var(--accent-blue);
+  }
+
+  .ase-tab.text-large {
+    font-size: 16px;
+    font-weight: bold;
+    flex: 0.5;
+    background-color: #1e2538;
+  }
+
+  /* --- Search Toolbar --- */
+  .ase-search-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #161b25;
+    gap: 10px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .ase-search-input-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 300px;
+  }
+
+  .ase-search-input-wrapper input {
+    width: 100%;
+    background: #000;
+    border: 1px solid #444;
+    padding: 5px 5px 5px 30px;
+    color: white;
+    border-radius: 3px;
+  }
+
+  .ase-search-input-wrapper i.fa-magnifying-glass {
+    position: absolute;
+    left: 8px;
+    top: 7px;
+    color: #666;
+    font-size: 12px;
+  }
+
+  .ase-search-clear {
+    position: absolute;
+    right: 8px;
+    top: 7px;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    display: block;
+    /* Always visible */
+    transition: color 0.2s;
+
+    &:hover {
+      color: #aaa;
+    }
+  }
+
+  .ase-filter-buttons {
+    display: flex;
+    gap: 5px;
+  }
+
+  .ase-btn-filter {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    padding: 0 16px;
+    /* Matched padding to add track btn */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    /* Slightly larger text */
+    transition: all 0.2s;
+    height: 36px;
+    /* Explicit height to match Add Track */
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+
+    &.active {
+      border-color: #22c55e;
+      color: #22c55e;
+      box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
+      font-weight: bold;
+    }
+
+    &:hover:not(.active) {
+      border-color: #666;
+      color: #bbb;
+    }
+  }
+
+  .ase-add-track-btn {
+    /* Remove absolute positioning */
+    margin-left: auto;
+    /* Push to right */
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px 16px;
+    /* Balanced padding */
+    height: 36px;
+    /* Fixed height for consistency */
+    border-radius: 4px;
+    /* Rounded corners */
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  // Inline tags container (within toolbar)
+  .ase-tags-inline {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow wrapping */
+    align-items: flex-start;
+    align-content: flex-start;
+    /* Pack rows tightly */
+    gap: 5px;
+    flex: 1;
+    overflow-y: auto;
+    /* Vertical scroll */
+    overflow-x: hidden;
+    padding: 4px 8px;
+    max-height: 55px;
+    /* Approx 2 lines (24px tags + gap) */
+
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid #444;
+    border-radius: 4px;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      /* Vertical scrollbar width */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 2px;
+    }
+  }
+
+  // Legacy - remove if no longer needed
+  .ase-tags-row-top {
+    display: none; // Hidden, moved inline
+  }
+}
+
+/* --- Tags --- */
+.ase-tag {
+  background-color: #aaa;
+  color: #222;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ase-tag.selected {
+  background-color: var(--accent-blue);
+  color: white;
+}
+
+.ase-add-tag-mini {
+  background: #444;
+  border: none;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* --- Workspace (Sidebar + Main) --- */
+.ase-workspace {
+  position: relative;
+  z-index: 1;
+  /* Lower than tags row */
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ase-sidebar {
+  width: 300px;
+  background-color: #1a2236;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #111;
+}
+
+.ase-sidebar-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ase-favorites-section {
+  flex: 0 0 auto;
+  /* Don't grow, just take needed space */
+  border-top: 2px solid #111;
+  max-height: 40%;
+}
+
+// Favorite item with type icon on left
+.ase-favorite-item {
+  .ase-favorite-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
+
+    .ase-type-icon {
+      color: #64748b;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.ase-sidebar-header {
+  background-color: #232d45;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 13px;
+
+  .ase-sidebar-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+// Compact variant for sidebar use (overrides ase-add-track-btn)
+.ase-btn-compact {
+  padding: 4px 12px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  margin-left: auto;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 3px !important;
+  flex-shrink: 0;
+  box-shadow: none !important;
+  background-color: #1e3a8a !important;
+  width: auto !important;
+
+  &:hover {
+    background-color: #2563eb !important;
+    transform: none !important;
+  }
+}
+
+.ase-btn-small-blue {
+  background-color: #1d4ed8;
+  border: none;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+// Custom "Add to Queue" icon (playlist icon with note)
+.ase-icon-add-queue {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background-color: #64748b;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #94a3b8;
+  }
+
+  &.active {
+    background-color: var(--accent-cyan, #22d3ee);
+  }
+}
+
+.ase-list-group {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.ase-list-item {
+  padding: 8px 10px;
+  border-bottom: 1px solid #252e46;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.ase-list-item:hover {
+  background-color: #2a3550;
+}
+
+.ase-list-item.active {
+  background-color: #2f3b59;
+  border-left: 3px solid var(--text-main);
+}
+
+.ase-list-item .ase-icons {
+  color: #64748b;
+  gap: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.ase-list-item .ase-icons i {
+  cursor: pointer;
+}
+
+// Drag & Drop visual feedback
+.ase-list-item.dragging {
+  opacity: 0.5;
+}
+
+.ase-list-item.drag-over {
+  background-color: #2f4a6e;
+}
+
+.ase-list-item.drag-above {
+  border-top: 2px solid var(--accent-cyan, #22d3ee);
+}
+
+.ase-list-item.drag-below {
+  border-bottom: 2px solid var(--accent-cyan, #22d3ee);
+}
+
+/* --- Content Area --- */
+.ase-main-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.ase-content-area {
+  flex: 1;
+  background-color: #0d1117;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ase-content-controls {
+  display: flex;
+  gap: 5px;
+  padding: 5px 10px;
+  background-color: #161b25;
+  flex-shrink: 0;
+}
+
+.ase-btn-text {
+  background: #1e283d;
+  border: none;
+  color: var(--accent-blue);
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: lighten(#1e283d, 10%);
+    text-shadow: 0 0 5px rgba(0, 196, 255, 0.5);
+  }
+}
+
+.ase-btn-all-tracks {
+  width: 100px;
+  height: 24px;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(0, 196, 255, 0.15);
+  border: 1px solid rgba(0, 196, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: rgba(0, 196, 255, 0.25);
+    border-color: var(--accent-blue);
+  }
+}
+
+.ase-sort-dropdown {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ase-sort-select {
+  background: #1e283d;
+  color: #94a3b8;
+  border: 1px solid #334155;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  height: 24px;
+  min-width: 120px;
+
+  &:hover {
+    background: #2d3a52;
+    border-color: #475569;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+  }
+
+  option {
+    background-color: #1e283d;
+    color: #e2e8f0;
+  }
+}
+
+.ase-track-player-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+
+// Track player item - 2-row compact layout with controls vertically centered
+.ase-track-player-item {
+  position: relative;
+  background-color: #11141d;
+  padding: 8px 12px;
+  padding-left: 72px;
+  /* Space for image (50px + gap) */
+  padding-right: 220px; // Reserve space for controls
+  border-bottom: 1px solid #333;
+  cursor: grab;
+  min-height: 66px;
+
+  &.dragging {
+    opacity: 0.5;
+  }
+}
+
+/* Image container */
+.ase-track-image {
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  width: 50px;
+  height: 50px;
+  background-color: #1e283d;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  i {
+    font-size: 20px;
+    color: #475569;
+  }
+}
+
+// Controls positioned absolutely on the right, vertically centered
+.ase-track-controls {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+// Row 1: Header with title, channel, controls
+.ase-track-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ase-track-title-block {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.ase-track-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e5e5e5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ase-track-duration {
+  font-size: 11px;
+  color: #666;
+  flex-shrink: 0;
+}
+
+// Channel dropdown
+.ase-channel-select {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1e283d;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  color: #94a3b8;
+  border: 1px solid #334155;
+  min-width: 80px;
+  justify-content: space-between;
+
+  &:hover {
+    background: #2d3a52;
+    border-color: #475569;
+  }
+
+  i {
+    font-size: 9px;
+    color: #64748b;
+  }
+}
+
+.ase-playback-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  i {
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    padding: 6px;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.ase-track-controls>i,
+.ase-track-controls>.ase-icon-add-queue {
+  font-size: 18px;
+  color: #666;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+  }
+
+  &.active {
+    color: var(--accent-cyan, #22d3ee);
+  }
+}
+
+.ase-btn-delete {
+  color: #4a5568 !important;
+  margin-left: 8px;
+
+  &:hover {
+    color: #f87171 !important;
+  }
+}
+
+// Row 2: Tags
+.ase-track-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+  align-items: center;
+}
+
+.ase-add-tag-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #1e283d;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 10px;
+
+  &:hover {
+    background: #2d3a52;
+    color: #94a3b8;
+  }
+}
+
+// Row 2: Channel + Tags
+.ase-track-row2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.ase-empty-list-area {
+  flex: 1;
+  background-color: #0b0e14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+/* --- Footer (Mixer) --- */
+.ase-mixer-footer {
+  height: 100px;
+  background-color: #121621;
+  border-top: 1px solid #333;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ase-mixer-group {
+  flex: 1;
+  background-color: #1a202e;
+  border-radius: 4px;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80px;
+  border: 1px solid #2a3245;
+}
+
+.ase-mixer-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 5px;
+  font-size: 11px;
+  color: #888;
+}
+
+.ase-status-light {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #444;
+  position: absolute;
+  left: 10px;
+}
+
+.ase-status-light.active {
+  background-color: #fbbf24;
+  box-shadow: 0 0 5px #fbbf24;
+}
+
+.ase-status-light.active-green {
+  background-color: #22c55e;
+  box-shadow: 0 0 5px #22c55e;
+}
+
+.ase-mixer-controls {
+  flex: 1;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ase-mixer-controls i {
+  margin-right: 5px;
+}
+
+.play-controls {
+  display: flex;
+  gap: 8px;
+  font-size: 10px;
+}
+
+/* Custom Range Slider Styling */
+.ase-slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ase-volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: #334155;
+  outline: none;
+  margin: 10px 0;
+  border-radius: 2px;
+}
+
+.ase-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  cursor: pointer;
+  margin-top: -4px;
+  /* Align thumb */
+  box-shadow: 0 0 5px var(--accent-blue);
+}
+
+/* Specific colors for specific sliders */
+.ase-mixer-group:nth-child(2) .ase-volume-slider::-webkit-slider-thumb {
+  background: var(--accent-blue);
+}
+
+.ase-mixer-group:nth-child(2) .ase-volume-slider {
+  background: linear-gradient(to right, var(--accent-blue) 0%, #333 0%);
+}
+
+.ase-mixer-group:nth-child(1) .ase-volume-slider::-webkit-slider-thumb {
+  background: var(--accent-blue);
+}
+
+.ase-mixer-group:nth-child(1) .ase-volume-slider {
+  background: linear-gradient(to right, var(--accent-blue) 0%, #333 0%);
+}
+
+.ase-percentage {
+  color: var(--accent-blue);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Master Section */
+.ase-master-group {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+}
+
+.ase-master-label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.ase-master-slider {
+  width: 80%;
+  background: linear-gradient(to right, var(--accent-blue) 0%, #333 0%);
+  height: 6px;
+}
+
+.ase-master-perc {
+  color: var(--accent-blue);
+  font-size: 14px;
+}
+
+/* Global Controls */
+.ase-global-controls {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Centered in remaining space */
+  padding-left: 0;
+  gap: 30px;
+}
+
+.ase-sync-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  gap: 5px;
+  transform: scale(1.1);
+  /* Slightly larger */
+}
+
+.ase-sync-light {
+  width: 24px;
+  /* Larger light */
+  height: 24px;
+  background-color: #444;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  border: 2px solid #333;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.ase-sync-light.active {
+  background-color: var(--accent-blue);
+  box-shadow: 0 0 12px var(--accent-blue), inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent-blue);
+}
+
+.ase-sync-label {
+  font-size: 11px;
+  /* Larger font */
+  font-weight: bold;
+  color: #666;
+}
+
+.ase-sync-wrapper:hover .ase-sync-label {
+  color: var(--text-main);
+}
+
+.ase-sync-wrapper:hover .ase-sync-light:not(.active) {
+  background-color: #555;
+}
+
+.ase-big-buttons {
+  font-size: 28px;
+  /* Larger icons */
+  display: flex;
+  gap: 20px;
+  color: #888;
+}
+
+.ase-big-buttons i:hover {
+  color: white;
+}
+
+.ase-bottom-bar-info {
+  background-color: #0f1219;
+  padding: 2px 10px;
+  font-size: 9px;
+  color: #555;
+  display: flex;
+  justify-content: flex-start; // Allow spacing with margin-auto
+  flex-shrink: 0;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

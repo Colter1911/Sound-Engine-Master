@@ -1,0 +1,202 @@
+<div class="ase-effects-layout">
+    {{!-- Channel Tabs --}}
+    <div class="ase-channel-tabs">
+        <div class="ase-channel-tab {{#if (eq activeChannel 'music')}}active{{/if}}" data-channel="music">
+            {{localize 'ASE.Groups.music'}}
+            {{#if musicActiveCount}}<span class="ase-tab-badge">{{musicActiveCount}}</span>{{/if}}
+        </div>
+        <div class="ase-channel-tab {{#if (eq activeChannel 'ambience')}}active{{/if}}" data-channel="ambience">
+            {{localize 'ASE.Groups.ambience'}}
+            {{#if ambienceActiveCount}}<span class="ase-tab-badge">{{ambienceActiveCount}}</span>{{/if}}
+        </div>
+        <div class="ase-channel-tab {{#if (eq activeChannel 'sfx')}}active{{/if}}" data-channel="sfx">
+            {{localize 'ASE.Groups.sfx'}}
+            {{#if sfxActiveCount}}<span class="ase-tab-badge">{{sfxActiveCount}}</span>{{/if}}
+        </div>
+
+
+    </div>
+
+
+    {{!-- Master Bypass Control --}}
+    <div class="ase-effects-control-bar">
+        <button class="ase-bypass-btn {{#unless chainBypassed}}enabled{{/unless}}" data-action="toggle-chain-bypass">
+            <i class="fa-solid fa-music"></i>
+            {{#if chainBypassed}}
+            <span>{{localize 'ASE.UI.Effects.DisableEffects'}}</span>
+            {{else}}
+            <span>{{localize 'ASE.UI.Effects.EnableEffects'}}</span>
+            {{/if}}
+        </button>
+    </div>
+
+    {{!-- Pedalboard --}}
+    <div class="ase-pedalboard">
+        <div class="ase-pedalboard-inner">
+            {{!-- INPUT Terminal --}}
+            <div class="ase-chain-terminal input">
+                <div class="ase-terminal-icon"><i class="fa-solid fa-plug"></i></div>
+                <span class="ase-terminal-label">{{localize 'ASE.UI.Effects.Input'}}</span>
+            </div>
+
+            {{!-- Cable from INPUT --}}
+            <div
+                class="ase-cable {{#if pedals.length}}{{#with (lookup pedals 0)}}{{#if this.enabled}}active{{/if}}{{/with}}{{/if}}">
+            </div>
+
+            {{#each pedals}}
+            {{!-- Drop Zone before each pedal --}}
+            <div class="ase-drop-zone" data-drop-index="{{this.chainIndex}}">
+                <div class="ase-drop-zone-indicator"></div>
+            </div>
+
+            {{!-- Pedal Card --}}
+            <div class="ase-pedal-card {{#if this.enabled}}active{{/if}} {{#if this.selected}}selected{{/if}}"
+                draggable="true" data-effect-type="{{this.type}}" data-chain-index="{{this.chainIndex}}">
+
+                {{!-- Remove Button --}}
+                <button class="ase-pedal-remove" data-action="remove-effect"
+                    title="{{localize 'ASE.UI.Effects.RemoveFromChain'}}">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="ase-pedal-name-top">{{aseEffectTypeLabel this.type}}</div>
+
+                <div class="ase-pedal-knob-area">
+                    <div class="ase-pedal-knob" style="--knob-rotation: {{this.mixRotation}}deg">
+                        <div class="ase-knob-indicator"></div>
+                    </div>
+                    <div class="ase-pedal-mix-value">{{this.mixPercent}}%</div>
+                </div>
+
+                <div class="ase-pedal-footer">
+                    <div class="ase-pedal-led {{#if this.enabled}}on{{/if}}"></div>
+                    <button class="ase-pedal-footswitch {{#if this.enabled}}engaged{{/if}}"
+                        data-action="toggle-bypass"></button>
+                    <div class="ase-pedal-name-bottom">{{aseEffectTypeLabel this.type}}</div>
+                </div>
+            </div>
+
+            {{!-- Cable after pedal --}}
+            <div class="ase-cable {{#if this.enabled}}active{{/if}}"></div>
+            {{/each}}
+
+            {{!-- Final drop zone --}}
+            <div class="ase-drop-zone" data-drop-index="{{pedals.length}}">
+                <div class="ase-drop-zone-indicator"></div>
+            </div>
+
+            {{!-- Add Effect Button --}}
+            {{#if availableEffects.length}}
+            <button class="ase-add-effect-btn" data-action="open-constructor"
+                title="{{localize 'ASE.UI.Effects.AddEffectToChain'}}">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+            {{/if}}
+
+            {{!-- OUTPUT Terminal --}}
+            <div class="ase-chain-terminal output">
+                <div class="ase-terminal-icon"><i class="fa-solid fa-volume-high"></i></div>
+                <span class="ase-terminal-label">{{localize 'ASE.UI.Effects.Output'}}</span>
+            </div>
+        </div>
+    </div>
+
+    {{!-- Effects Constructor Drawer --}}
+    <div class="ase-constructor {{#if constructorOpen}}open{{/if}}">
+        <div class="ase-constructor-header">
+            <h4>{{localize 'ASE.UI.Effects.AddEffect'}}</h4>
+            <button class="ase-constructor-close" data-action="close-constructor">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="ase-constructor-grid">
+            {{#each availableEffects}}
+            <button class="ase-constructor-item" data-action="add-effect" data-effect-type="{{this.type}}">
+                <div class="ase-constructor-item-icon">
+                    <i class="fa-solid {{this.icon}}"></i>
+                </div>
+                <span class="ase-constructor-item-label">{{localize this.label}}</span>
+            </button>
+            {{/each}}
+        </div>
+        {{#unless availableEffects.length}}
+        <div class="ase-constructor-empty">{{localize 'ASE.UI.Effects.AllEffectsInChain'}}</div>
+        {{/unless}}
+    </div>
+
+    {{!-- Detail Panel --}}
+    <div class="ase-detail-panel {{#unless selectedEffect}}collapsed{{/unless}}">
+        {{#if selectedEffect}}
+        <div class="ase-detail-header">
+            <h3>{{aseEffectTypeLabel selectedEffect.type}} {{localize 'ASE.UI.Effects.Parameters'}}</h3>
+        </div>
+        <div class="ase-detail-content">
+            {{!-- Left: Mix Knob --}}
+            <div class="ase-detail-knob-section">
+                <div class="ase-detail-knob" style="--knob-rotation: {{selectedEffect.mixRotation}}deg">
+                    <div class="ase-knob-indicator"></div>
+                </div>
+                <div class="ase-detail-knob-label">{{localize 'ASE.UI.Effects.Mix'}} {{selectedEffect.mixPercent}}%
+                </div>
+            </div>
+
+            {{!-- Right: Parameter Grid --}}
+            <div class="ase-detail-params">
+                {{#each selectedEffect.params}}
+                <div class="ase-detail-param-row">
+                    <span class="ase-detail-param-label">{{this.name}}:</span>
+                    <span class="ase-detail-param-value">{{this.displayValue}}</span>
+                    {{#if (eq this.type "select")}}
+                    <div class="ase-detail-param-segmented">
+                        {{#each this.options}}
+                        <button class="ase-seg-btn {{#if (eq this.value ../value)}}active{{/if}}"
+                            data-param-id="{{../id}}" data-value="{{this.value}}">
+                            {{this.label}}
+                        </button>
+                        {{/each}}
+                    </div>
+                    {{else}}
+                    <input type="range" class="ase-detail-slider" data-param-id="{{this.id}}"
+                        data-suffix="{{this.suffix}}" min="{{this.min}}" max="{{this.max}}" step="{{this.step}}"
+                        value="{{this.value}}" style="--slider-fill: {{this.fillPercent}}%">
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{else}}
+        <div class="ase-detail-empty">{{localize 'ASE.UI.Effects.SelectPedalToEdit'}}</div>
+        {{/if}}
+    </div>
+
+    {{!-- Footer --}}
+    <div class="ase-effects-footer">
+        <div class="ase-preset-section">
+            <span class="ase-preset-label">{{localize 'ASE.UI.Effects.Preset'}}:</span>
+            <select id="ase-preset-select" class="ase-preset-select">
+                <option value="">{{localize 'ASE.UI.Effects.LoadPreset'}}</option>
+                <optgroup label="{{localize 'ASE.UI.Effects.BuiltIn'}}">
+                    {{#each builtinPresets}}
+                    <option value="{{this.id}}">{{this.name}}</option>
+                    {{/each}}
+                </optgroup>
+                {{#if customPresets.length}}
+                <optgroup label="{{localize 'ASE.UI.Effects.Custom'}}">
+                    {{#each customPresets}}
+                    <option value="{{this.id}}">{{this.name}}</option>
+                    {{/each}}
+                </optgroup>
+                {{/if}}
+            </select>
+        </div>
+
+        <button class="ase-footer-btn" data-action="save-preset">
+            <i class="fa-solid fa-save"></i> {{localize 'ASE.UI.Actions.Save'}}
+        </button>
+
+        <button class="ase-footer-btn secondary" data-action="reset-chain">
+            <i class="fa-solid fa-rotate-left"></i> {{localize 'ASE.UI.Actions.Reset'}}
+        </button>
+    </div>
+</div>

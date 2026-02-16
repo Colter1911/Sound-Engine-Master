@@ -1,0 +1,263 @@
+{
+    "ASE": {
+        "Title": "Sound Engine Master",
+        "Mixer": "Звуковой микшер",
+        "Volume": "Громкость",
+        "MasterVolume": "Трансляция",
+        "Play": "Воспроизвести",
+        "Pause": "Пауза",
+        "Stop": "Стоп",
+        "Loop": "Повтор",
+        "Groups": {
+            "music": "Музыка",
+            "ambience": "Окружение",
+            "sfx": "SFX"
+        },
+        "UI": {
+            "Tabs": {
+                "Mixer": "Микшер",
+                "Library": "Локальная библиотека",
+                "OnlineComingSoon": "Онлайн-библиотека (скоро)",
+                "Effects": "Эффекты",
+                "Online": "Онлайн"
+            },
+            "Volume": {
+                "Local": "Локальная"
+            },
+            "Sync": {
+                "Label": "СИНХ",
+                "On": "ВКЛ",
+                "Off": "ВЫКЛ"
+            },
+            "Tooltip": {
+                "ToggleSync": "Переключить синхронизацию",
+                "ResumeAll": "Возобновить всё",
+                "PauseAll": "Пауза для всех",
+                "StopAll": "Остановить всё",
+                "OpenFullMixer": "Открыть полный микшер",
+                "DragToReorder": "Перетащите для изменения порядка",
+                "PlaybackMode": "Режим воспроизведения",
+                "AddToQueue": "Добавить в очередь",
+                "RemoveFromFavorites": "Убрать из избранного",
+                "ClearUngrouped": "Очистить несгруппированное",
+                "RemovePlaylist": "Удалить плейлист",
+                "AudioChannel": "Аудиоканал",
+                "RemoveFromQueue": "Удалить из очереди",
+                "PlayPlaylist": "Запустить плейлист",
+                "Favorite": "Избранное",
+                "Delete": "Удалить"
+            },
+            "Hint": {
+                "AdjustPersonalVolume": "Настройте личную громкость",
+                "AddTracksFromFavoritesOrLibrary": "Добавьте треки из Избранного или Библиотеки"
+            },
+            "Empty": {
+                "NoFavorites": "Нет избранного",
+                "QueueEmpty": "Очередь пуста",
+                "NoTracksFound": "Треки не найдены"
+            },
+            "Effects": {
+                "MusicEffects": "Эффекты музыки",
+                "AmbienceEffects": "Эффекты атмосферы",
+                "SfxEffects": "Эффекты SFX",
+                "DisableEffects": "Эффекты Выключены",
+                "EnableEffects": "Эффекты Включены",
+                "Input": "ВХОД",
+                "Output": "ВЫХОД",
+                "RemoveFromChain": "Удалить из цепи",
+                "AddEffectToChain": "Добавить эффект в цепь",
+                "AddEffect": "ДОБАВИТЬ ЭФФЕКТ",
+                "AllEffectsInChain": "Все эффекты уже в цепи",
+                "Parameters": "ПАРАМЕТРЫ",
+                "Mix": "МИКС",
+                "SelectPedalToEdit": "Выберите педаль для редактирования параметров",
+                "Preset": "Пресет",
+                "LoadPreset": "Загрузить пресет...",
+                "BuiltIn": "Встроенные",
+                "Custom": "Пользовательские",
+                "PresetName": "Название пресета",
+                "MyCustomPreset": "Мой пресет",
+                "DescriptionOptional": "Описание (необязательно)",
+                "ShortDescription": "Короткое описание...",
+                "SaveEffectPreset": "Сохранить пресет эффектов"
+            },
+            "Actions": {
+                "Add": "Добавить",
+                "Ok": "ОК",
+                "Cancel": "Отмена",
+                "Confirm": "Подтвердить",
+                "Save": "Сохранить",
+                "Reset": "Сбросить"
+            },
+            "Panel": {
+                "SoundVolume": "Громкость звука",
+                "SoundLibrary": "Звуковая библиотека"
+            },
+            "Notification": {
+                "ChannelSetTo": "Канал установлен: {channel}",
+                "LoadedPreset": "Загружен пресет: {name}",
+                "SavedPreset": "Сохранён пресет: {name}",
+                "PlayingPlaylist": "Воспроизводится плейлист: {name}",
+                "TagAdded": "Тег \"{tag}\" добавлен.",
+                "TagRenamedOnTracks": "Тег \"{oldTag}\" переименован в \"{newTag}\" у {count} треков.",
+                "TagDeletedFromTracks": "Тег \"{tag}\" удалён у {count} треков.",
+                "CustomTagDeleted": "Пользовательский тег \"{tag}\" удалён.",
+                "DeletedTrack": "Удалён \"{name}\"",
+                "RemovedTag": "Тег \"{tag}\" удалён",
+                "RenamedTo": "Переименовано в \"{name}\"",
+                "AddedToPlaylist": "\"{name}\" добавлен в плейлист",
+                "DeletedPlaylist": "Плейлист \"{name}\" удалён"
+            },
+            "Warning": {
+                "PlaylistIsEmpty": "Плейлист пуст",
+                "NoPlaylistsCreateFirst": "Нет доступных плейлистов. Сначала создайте плейлист."
+            },
+            "SceneControl": {
+                "OpenSoundMixer": "Открыть звуковой микшер",
+                "OpenSoundVolume": "Открыть громкость звука",
+                "OpenSoundLibrary": "Открыть звуковую библиотеку"
+            },
+            "Settings": {
+                "MixerState": {
+                    "Name": "Состояние микшера",
+                    "Hint": "Внутреннее хранилище состояния микшера"
+                },
+                "MaxSimultaneousTracks": {
+                    "Name": "Макс. одновременных треков",
+                    "Hint": "Ограничение количества одновременно воспроизводимых треков (1-32) Не рекомендуется поднимать больше 8"
+                },
+                "LibraryState": {
+                    "Name": "Состояние библиотеки",
+                    "Hint": "Внутреннее хранилище треков и плейлистов"
+                },
+                "QueueState": {
+                    "Name": "Состояние очереди",
+                    "Hint": "Состояние очереди воспроизведения (сохраняется между сессиями)"
+                },
+                "Favorites": {
+                    "Name": "Избранное",
+                    "Hint": "Избранные треки и плейлисты пользователя"
+                },
+                "Locale": {
+                    "Name": "Язык модуля",
+                    "Hint": "Язык интерфейса модуля. \"Как в Foundry\" использует язык Foundry VTT.",
+                    "ChoiceFoundryDefault": "Как в Foundry",
+                    "ChoiceEnglish": "Английский",
+                    "ChoiceRussian": "Русский",
+                    "Changed": "Язык модуля изменён. Перезапустите окна модуля для полного обновления подписей."
+                }
+            },
+            "SortOption": {
+                "Playable": "Воспроизводимые",
+                "DateDesc": "Дата добавления (сначала новые)",
+                "DateAsc": "Дата добавления (сначала старые)",
+                "DurationDesc": "Длительность (сначала длинные)",
+                "DurationAsc": "Длительность (сначала короткие)",
+                "NameAsc": "Имя (А-Я)",
+                "NameDesc": "Имя (Я-А)"
+            },
+            "PlaybackMode": {
+                "inherit": "Наследовать (по умолчанию)",
+                "loop": "Повтор",
+                "single": "Один раз",
+                "linear": "Линейно",
+                "random": "Случайно"
+            },
+            "EffectType": {
+                "filter": "Filter",
+                "compressor": "Compressor",
+                "distortion": "Distortion",
+                "delay": "Delay",
+                "reverb": "Reverb",
+                "modulation": "Modulation"
+            },
+            "Common": {
+                "On": "ВКЛ",
+                "Off": "ВЫКЛ"
+            },
+            "Playlists": "Плейлисты",
+            "Create": "Создать",
+            "AddTrack": "Добавить трек",
+            "AllTracks": "Все треки",
+            "Placeholder": {
+                "Search": "Поиск..."
+            },
+            "Sorting": "Сортировка",
+            "Favorites": "Избранное",
+            "PlaybackQueue": "Очередь воспроизведения",
+            "Tracks": "треков",
+            "Menu": {
+                "Rename": "Переименовать",
+                "Delete": "Удалить",
+                "DeleteTrack": "Удалить трек",
+                "AddToPlaylist": "Добавить в плейлист",
+                "RemoveFromPlaylist": "Убрать из плейлиста",
+                "EditTags": "Редактировать теги",
+                "RemoveTag": "Удалить тег"
+            },
+            "Dialog": {
+                "TrackName": {
+                    "Label": "Название трека"
+                },
+                "PlaylistName": {
+                    "Label": "Название плейлиста"
+                },
+                "TagName": {
+                    "Label": "Название тега",
+                    "Placeholder": "Введите название тега..."
+                },
+                "TagSearch": {
+                    "Label": "Поиск тегов",
+                    "Placeholder": "Найти тег..."
+                },
+                "SelectPlaylist": {
+                    "Label": "Выберите плейлист"
+                },
+                "NewPlaylist": {
+                    "Title": "Новый плейлист"
+                },
+                "RenamePlaylist": {
+                    "Title": "Переименовать плейлист"
+                },
+                "DeletePlaylist": {
+                    "Title": "Удалить плейлист",
+                    "Content": "Вы уверены, что хотите удалить плейлист \"{name}\"?"
+                },
+                "NewTag": {
+                    "Title": "Новый тег"
+                },
+                "RenameTag": {
+                    "Title": "Переименовать тег"
+                },
+                "DeleteTag": {
+                    "Title": "Удалить тег",
+                    "ContentAllTracks": "Вы уверены, что хотите удалить тег \"{tag}\" у всех треков?"
+                },
+                "RenameTrack": {
+                    "Title": "Переименовать трек"
+                },
+                "DeleteTrack": {
+                    "Title": "Удалить трек",
+                    "Content": "Вы уверены, что хотите удалить \"{name}\"?"
+                },
+                "DeleteTrackGlobal": {
+                    "Label": "Удалить трек (глобально)"
+                },
+                "ManageTrack": {
+                    "Title": "Управление треком",
+                    "Content": "Что сделать с \"{name}\"?"
+                },
+                "EditTags": {
+                    "Title": "Редактировать теги: {name}"
+                },
+                "AddToPlaylist": {
+                    "Title": "Добавить в плейлист"
+                }
+            },
+            "Queue": {
+                "Ungrouped": "Без группы",
+                "UnknownPlaylist": "Неизвестный плейлист"
+            }
+        }
+    }
+}

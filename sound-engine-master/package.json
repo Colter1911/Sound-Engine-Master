@@ -1,0 +1,16 @@
+{
+  "name": "advanced-sound-engine",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^13.346.0-beta.20250812191140",
+    "sass": "^1.77.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0"
+  }
+}
