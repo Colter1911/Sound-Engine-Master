@@ -1,1 +1,0 @@
-export { GlobalStorage } from './GlobalStorage';
