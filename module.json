@@ -1,0 +1,40 @@
+{
+  "id": "sound-engine-master",
+  "title": "Sound Engine Master",
+  "description": "Independent Web Audio engine master in Foundry VTT",
+  "version": "0.9.9",
+  "manifest": "https://github.com/USERNAME/REPO/releases/latest/download/module.json",
+  "download": "",
+  "readme": "https://github.com/USERNAME/REPO/blob/main/README.md",
+  "bugs": "",
+  "changelog": "https://github.com/USERNAME/REPO/releases",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13.351"
+  },
+  "authors": [
+    {
+      "name": "FriedDenD",
+      "url": "https://boosty.to/frieddend"
+    }
+  ],
+  "esmodules": [
+    "dist/module.js"
+  ],
+  "styles": [
+    "dist/styles/sound-engine-v5.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "ru",
+      "name": "Russian",
+      "path": "lang/ru.json"
+    }
+  ],
+  "socket": true
+}
