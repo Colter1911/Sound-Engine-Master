@@ -4,7 +4,7 @@
   "description": "Independent Web Audio engine master in Foundry VTT",
   "version": "0.9.9",
   "manifest": "https://github.com/USERNAME/REPO/releases/latest/download/module.json",
-  "download": "",
+  "download": "https://drive.google.com/uc?export=download&id=1Nx4zEPFGssVKPLLqBIJA__MssCXs66_O",
   "readme": "https://github.com/USERNAME/REPO/blob/main/README.md",
   "bugs": "",
   "changelog": "https://github.com/USERNAME/REPO/releases",
@@ -37,4 +37,5 @@
     }
   ],
   "socket": true
+
 }
