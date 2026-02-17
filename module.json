@@ -5,7 +5,7 @@
   "version": "0.9.95",
   "url": "https://boosty.to/frieddend",
   "manifest": "https://raw.githubusercontent.com/Colter1911/Sound-Engine-Master/refs/heads/main/module.json",
-  "download": "https://drive.google.com/file/d/1GiqHKkL92-0KpUfA5mt_sOhqJPWVTmkQ/view?usp=sharing",
+  "download": "https://drive.google.com/uc?export=download&id=1GiqHKkL92-0KpUfA5mt_sOhqJPWVTmkQ",
   "readme": "https://github.com/Colter1911/Sound-Engine-Master/blob/main/README.md",
   "bugs": "",
   "changelog": "",
@@ -41,3 +41,4 @@
   "socket": true
 
 }
+
