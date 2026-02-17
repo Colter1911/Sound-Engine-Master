@@ -2,10 +2,10 @@
   "id": "sound-engine-master",
   "title": "Sound Engine Master",
   "description": "Independent Web Audio engine master in Foundry VTT",
-  "version": "0.9.9",
+  "version": "0.9.95",
   "url": "https://boosty.to/frieddend",
   "manifest": "https://raw.githubusercontent.com/Colter1911/Sound-Engine-Master/refs/heads/main/module.json",
-  "download": "https://drive.google.com/uc?export=download&id=1EBgN3inuMn350cQ6qrimesqqJ3HGcvbI",
+  "download": "https://drive.google.com/file/d/1GiqHKkL92-0KpUfA5mt_sOhqJPWVTmkQ/view?usp=sharing",
   "readme": "https://github.com/Colter1911/Sound-Engine-Master/blob/main/README.md",
   "bugs": "",
   "changelog": "",
@@ -41,13 +41,3 @@
   "socket": true
 
 }
-
-
-
-
-
-
-
-
-
-
