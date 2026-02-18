@@ -1,4 +1,4 @@
-# SEM (Sound Engine Master)
+# SEM (Sound Engine Master) for Foundry VTT
 
 ## Overview
 
