@@ -1,11 +1,11 @@
 {
   "id": "sound-engine-master",
   "title": "Sound Engine Master",
-  "description": "Independent Web Audio engine master in Foundry VTT",
-  "version": "0.9.95",
+  "description": "Independent Web Audio engine with sync support",
+  "version": "1.0.0",
   "url": "https://boosty.to/frieddend",
   "manifest": "https://raw.githubusercontent.com/Colter1911/Sound-Engine-Master/refs/heads/main/module.json",
-  "download": "https://drive.google.com/uc?export=download&id=1GiqHKkL92-0KpUfA5mt_sOhqJPWVTmkQ",
+  "download": "https://drive.google.com/uc?export=download&id=15nlDOmzg2Q6voi29SGDQa32VyF1KHhq9",
   "readme": "https://github.com/Colter1911/Sound-Engine-Master/blob/main/README.md",
   "bugs": "",
   "changelog": "",
@@ -39,6 +39,4 @@
     }
   ],
   "socket": true
-
 }
-
